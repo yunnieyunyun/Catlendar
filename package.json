@@ -1,13 +1,14 @@
 {
   "name": "cat",
   "version": "1.0.0",
-  "description": "",
+  "description": "a website about cats",
   "license": "ISC",
-  "author": "",
+  "author": "us",
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "noder server.js"
   },
   "dependencies": {
     "express": "^5.2.1"
