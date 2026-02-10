@@ -1,5 +1,10 @@
-.calendar-weekdays,
-.calendar-dates {
+
+.calendarHeader {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+.calendar-weekdays, .calendar-dates {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 }
@@ -20,4 +25,25 @@
 #accountBtn:hover {
   scale: 0.9;
   background-color: rgb(211, 156, 165);
+}
+
+#daysOfWeek, .calendarDates {
+  display: grid;
+  grid-template-columns:  repeat(7, 1fr);
+}
+
+#monthYear{
+  text-align: center;
+}
+
+#prevDateButton {
+
+}
+
+#nextDateButton {
+
+}
+
+#viewSwitcher {
+
 }
