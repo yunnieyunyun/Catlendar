@@ -7,12 +7,13 @@ const genAI = new GoogleGenAI({
 
 async function askGemini(prompt) {
   try {
+    const new_prompt = `${prompt} plus add some cool info about cats and talk like a cat, maybe say some meows or something, keep it short though, YOU ARE A CAT`;
     const result = await genAI.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: [
         {
           role: 'user',
-          parts: [{ text: prompt }],
+          parts: [{ text: new_prompt }],
         },
       ],
     });
