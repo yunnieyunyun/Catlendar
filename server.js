@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const { createHash } = require('crypto');
 const fs = require('fs');
+const { askGemini } = require('./server_assets/ai-req.js');
 
 require('dotenv').config({ path: 'serverAssets/.env' });
 
@@ -23,7 +24,7 @@ function sha256(input) {
   return createHash('sha256').update(input).digest('hex');
 }
 
-//create account
+//create account - this belongs to cory
 app.post('/createAccount', (req, res) => {
   var { name, email, password } = req.body;
 
@@ -56,7 +57,7 @@ app.post('/createAccount', (req, res) => {
       } else {
         users.push(full);
 
-        //save updated users list to json
+        //save updated users list to json - this is Cory's
         fs.writeFile(
           'server_assets/users.json',
           JSON.stringify(users, null, 2),
