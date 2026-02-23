@@ -104,6 +104,19 @@ app.post('/logIn', (req, res) => {
   });
 });
 
+// AI responce
+app.post('/ai', async (req, res) => {
+  const { prompt } = req.body;
+
+  try {
+    const response = await askGemini(prompt);
+    return res.json({ answer: response });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'AI request failed' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
