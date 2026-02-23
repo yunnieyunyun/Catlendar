@@ -16,13 +16,14 @@ const prevDateBtn = document.getElementById('prevDateButton');
 const nextDateBtn = document.getElementById('nextDateButton');
 const viewSwitchBtn = document.getElementById('viewSwitcher');
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-
+const tasks = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
 let view = [true, false, false]
-// view[0] = year view, view [1] = week view, view[0] = day view
+// view[0] = year view, view [1] = week view, view[2] = day view
 let date = new Date();
 let month = date.getMonth();
 let year = date.getFullYear();
 let selectedDay = date.getDate();
+const dailyTasks = document.querySelector(".dailyTasks");
 
 
 function renderCalendar(month, year, selectedDay) {
@@ -78,9 +79,6 @@ function renderCalendar(month, year, selectedDay) {
         calendarDates.appendChild(day);     
   }
 }
-
-renderCalendar(month, year, selectedDay);
-
 prevDateBtn.onclick = function() {
   const daysInPrevMonth = new Date(year, month, 0).getDate();
   if (view[0]) {
@@ -141,6 +139,20 @@ viewSwitchBtn.onclick = function () {
   renderCalendar(month, year, selectedDay);
 };
 
+function getDailyTask() {
+  let today = new Date()
+  let tDay = today.getDay()
+  let tMonth = today.getMonth()
+  let tYear = today.getFullYear()
+  let seed = Math.floor(((tYear*tDay/3**tMonth/2)+tYear+tMonth+tDay)**(1/tMonth)**tDay);
+  let taskNumber = seed % tasks.length;
+  const task = document.createElement('div');
+  task.textContent = "Daily Task: " + `${tasks[taskNumber]}`;
+  dailyTasks.appendChild(task);
+}
+
+renderCalendar(month, year, selectedDay);
+getDailyTask();
 
 if (sessionStorage.getItem('loggedIn') == 'true') {
   document.getElementById('name').innerHTML =
