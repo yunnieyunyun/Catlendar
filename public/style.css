@@ -2,11 +2,14 @@
 .calendarHeader {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
+  text-align: center;
+
 }
 
 .calendar-weekdays, .calendar-dates {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  text-align: center;
 }
 
 #accountBtn {
@@ -30,6 +33,7 @@
 #daysOfWeek, .calendarDates {
   display: grid;
   grid-template-columns:  repeat(7, 1fr);
+  text-align: center;
 }
 
 #monthYear{

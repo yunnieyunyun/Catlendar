@@ -14,130 +14,61 @@ const calendarDates = document.querySelector(".calendarDates");
 const monthYear = document.getElementById("monthYear");
 const prevDateBtn = document.getElementById('prevDateButton');
 const nextDateBtn = document.getElementById('nextDateButton');
-const viewSwitchBtn = document.getElementById('viewSwitcher');
+const daysOfWeek = document.getElementById('daysOfWeek');
+const dayView = coument.getElementById('dayView');
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 const tasks = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
-let view = [true, false, false]
 // view[0] = year view, view [1] = week view, view[2] = day view
 let date = new Date();
 let month = date.getMonth();
 let year = date.getFullYear();
-let selectedDay = date.getDate();
 const dailyTasks = document.querySelector(".dailyTasks");
 
+renderCalendar(month, year);
+getDailyTask();
 
-function renderCalendar(month, year, selectedDay) {
+const calendarDay = document.getElementsByClassName(".calendar-day");
+
+
+function renderCalendar(month, year) {
   calendarDates.innerHTML = "";
   monthYear.textContent = `${months[month]} ${year}`;
 
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const week = Math.floor((selectedDay+firstDay)/7);
 
-  if (view[0]) {
-    for (let i = 0; i < firstDay; i++) {
-      const empty = document.createElement("div");
-      calendarDates.appendChild(empty);
-    }
-    for (let i = 1; i <= daysInMonth; i++) {
-      const day = document.createElement('div');
-      day.textContent = i;
-      calendarDates.appendChild(day);
-    }
+  for (let i = 0; i < firstDay; i++) {
+    const empty = document.createElement("div");
+    calendarDates.appendChild(empty);
   }
-  else if (view[1]) {
-    if (week == 0) {
-      let count = 7
-      for (let i = 0; i < firstDay; i++) {
-        const empty = document.createElement("div");
-        calendarDates.appendChild(empty);
-        count--;
-      }  
-      for (let i = 1; i <= count; i++) {
-        const day = document.createElement('div');
-        day.textContent = i;
-        calendarDates.appendChild(day);
-      }
-    }
-    else {
-      shift = firstDay;
-      if (firstDay == 0) {
-        shift = 7;
-      }
-      for (let i = week*7-shift+1; i <= week*7-shift+7; i++) {
-        if (i <= daysInMonth) {
-          const day = document.createElement('div');
-          day.textContent = i;
-          calendarDates.appendChild(day);   
-        } 
-      }
-    }
-  }
-  else {
-        const day = document.createElement('div');
-        day.textContent = selectedDay;
-        calendarDates.appendChild(day);     
+  for (let i = 1; i <= daysInMonth; i++) {
+    const day = document.createElement('div');
+    day.classList.add("calendar-day")
+    day.textContent = i;
+    daySetup(day);
+    calendarDates.appendChild(day);
   }
 }
 prevDateBtn.onclick = function() {
   const daysInPrevMonth = new Date(year, month, 0).getDate();
-  if (view[0]) {
     month--;
-  }
-  else if (view[1]) {
-    selectedDay -= 7;
-  }
-  else {
-    selectedDay --;   
-  }
-  if (selectedDay <= 0) {
-    selectedDay = daysInPrevMonth - selectedDay;
-    month--;
-  }
   if (month < 0) {
     month = 11;
     year--;
   }   
-  renderCalendar(month, year, selectedDay);
+  renderCalendar(month, year);
 };
 
 nextDateBtn.onclick = function() {
   const daysInMonth = new Date(year, month+1, 0).getDate();
-  if (view[0]) {
     month++;
-  }
-  else if (view[1]) {
-    selectedDay += 7;
-    if (selectedDay > daysInMonth) {
-      if (selectedDay - daysInMonth == 7) {
-        selectedDay = 1;
-        month++;
-      }
-      else {
-        selectedDay = daysInMonth;
-      }
-    }
-  else {
-    selectedDay++;
-    if (selectedDay > daysInMonth) {
-      selectedDay = 1;
-      month++;
-    }
-  }
-  }  
   if (month > 11) {
     month = 0;
     year++;
   }
-  
-  renderCalendar(month, year, selectedDay);
+  renderCalendar(month, year);
 };
 
-viewSwitchBtn.onclick = function () {
-  view.push(view.shift());
-  console.log
-  renderCalendar(month, year, selectedDay);
-};
 
 function getDailyTask() {
   let today = new Date()
@@ -151,8 +82,16 @@ function getDailyTask() {
   dailyTasks.appendChild(task);
 }
 
-renderCalendar(month, year, selectedDay);
-getDailyTask();
+function daySetup(day) {
+  day.addEventListener("click", function(e) {
+    openDayView(day);
+  });
+}
+
+function openDayView(day) {
+  daysOfWeek.innerHTML = "";
+  calendarDates.innerHTML = "";
+}
 
 if (sessionStorage.getItem('loggedIn') == 'true') {
   document.getElementById('name').innerHTML =
