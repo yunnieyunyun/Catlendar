@@ -16,6 +16,7 @@ const prevDateBtn = document.getElementById('prevDateButton');
 const nextDateBtn = document.getElementById('nextDateButton');
 const daysOfWeek = document.getElementById('daysOfWeek');
 const dayView = document.getElementById('dayView');
+const markDoneButton = document.getElementById('markAsDone');
 const months = [
   'January',
   'February',
@@ -94,6 +95,11 @@ nextDateBtn.onclick = function () {
   renderCalendar(month, year);
 };
 
+markDoneButton.onclick = function() {
+  const done = document.createElement('div');
+  done.textContent = "Complete! + 10 points";
+  dailyTasks.appendChild(done);
+}
 /*Eve Ang*/
 function getDailyTask() {
   let today = new Date();
