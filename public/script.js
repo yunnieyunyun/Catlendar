@@ -30,8 +30,17 @@ const months = [
   'November',
   'December',
 ];
-const tasks = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
-// view[0] = year view, view [1] = week view, view[2] = day view
+const tasks = [
+  'Drink water!',
+  'Check in with a friend!',
+  'Visit a park!',
+  'Pet your cat!',
+  'Give your cat a treat!',
+  'Hang out with your friends!',
+  'Get some exercise!',
+  'Eat a healthy snack!',
+];
+
 let date = new Date();
 let month = date.getMonth();
 let year = date.getFullYear();
@@ -44,6 +53,7 @@ const calendarDay = document.getElementsByClassName('.calendar-day');
 
 function renderCalendar(month, year) {
   calendarDates.innerHTML = '';
+  dayView.innerHTML = '';
   daysOfWeek.innerHTML =
     '<div>Sun</div>\n<div>Mon</div>\n<div>Tue</div>\n<div>Wed</div>\n<div>Thu</div>\n<div>Fri</div>\n<div>Sat</div>';
   monthYear.textContent = `${months[month]} ${year}`;
@@ -85,6 +95,7 @@ nextDateBtn.onclick = function () {
   renderCalendar(month, year);
 };
 
+/*Eve Ang*/
 function getDailyTask() {
   let today = new Date();
   let tDay = today.getDay();
@@ -131,27 +142,4 @@ if (sessionStorage.getItem('loggedIn') == 'true') {
   document.getElementById('accountBtn').innerHTML = 'Log Out';
   document.getElementById('accountBtn').href = '';
   document.getElementById('accountBtn').onclick = logOut;
-}
-
-function askAi() {
-  const question = prompt('What would you like to ask AI?');
-
-  fetch('/ai', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      question,
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.error) {
-        alert(data.error);
-      } else {
-        console.log(data);
-      }
-    })
-    .catch((error) => {
-      console.error('Error:', error.message);
-    });
 }
