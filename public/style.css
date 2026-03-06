@@ -1,8 +1,16 @@
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+body {
+  background-color: pink;
+}
+
 .calendarHeader {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   text-align: center;
-
 }
 
 .calendar-weekdays,
@@ -13,13 +21,20 @@
 }
 
 #accountBtn {
-  position: absolute;
-  top: 0px;
-  right: 0px;
+  margin-right: 20px;
   background-color: pink;
   border-radius: 25px;
   padding: 10px;
-  margin: 5px;
+  text-decoration: none;
+  color: rgb(242, 8, 203);
+  transition: scale 0.2s ease-in-out;
+}
+
+#infoBtn {
+  margin-right: 10px;
+  background-color: pink;
+  border-radius: 25px;
+  padding: 10px;
   text-decoration: none;
   color: rgb(242, 8, 203);
   transition: scale 0.2s ease-in-out;
@@ -30,15 +45,16 @@
   background-color: rgb(211, 156, 165);
 }
 
+#infoBtn:hover {
+  scale: 0.9;
+  background-color: rgb(211, 156, 165);
+}
+
 #daysOfWeek,
 .calendarDates {
   display: grid;
-<<<<<<< HEAD
   grid-template-columns: repeat(7, 1fr);
-=======
-  grid-template-columns:  repeat(7, 1fr);
   text-align: center;
->>>>>>> e8245851fd51d23de7d8a482005df729d8708dac
 }
 
 #monthYear {
@@ -66,4 +82,41 @@
   height: 50px;
   border-radius: 50%;
   cursor: pointer;
+}
+
+header {
+  padding-left: 10px;
+  /* padding-right: 10px; */
+  position: sticky;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100vw;
+  height: 75px;
+  background-color: rgb(219, 112, 130);
+  box-shadow: 0 8px 6px -6px black;
+}
+
+#name {
+  font-size: large;
+  color: rgb(220, 220, 220);
+}
+
+#welcome {
+  width: 100vw;
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(62, 94, 168);
+}
+
+#welcome h1 {
+  font-size: 10vw;
+}
+
+#welcome p {
+  font-size: 3vw;
 }

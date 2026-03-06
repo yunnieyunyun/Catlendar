@@ -104,12 +104,14 @@ app.post('/logIn', (req, res) => {
   });
 });
 
-// AI responce
+// Cory's CodeAI responce
 app.post('/ai', async (req, res) => {
-  const { prompt } = req.body;
+  const { question } = req.body;
+
+  console.log(question);
 
   try {
-    const response = await askGemini(prompt);
+    const response = await askGemini(question);
     return res.json({ answer: response });
   } catch (err) {
     console.error(err);

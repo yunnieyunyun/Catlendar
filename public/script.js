@@ -10,58 +10,70 @@ function logOut() {
   document.getElementById('accountBtn').href = 'account_page/account.html';
 }
 
-const calendarDates = document.querySelector(".calendarDates"); 
-const monthYear = document.getElementById("monthYear");
+const calendarDates = document.querySelector('.calendarDates');
+const monthYear = document.getElementById('monthYear');
 const prevDateBtn = document.getElementById('prevDateButton');
 const nextDateBtn = document.getElementById('nextDateButton');
 const daysOfWeek = document.getElementById('daysOfWeek');
-const dayView = coument.getElementById('dayView');
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-const tasks = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
+const dayView = document.getElementById('dayView');
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+const tasks = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
 // view[0] = year view, view [1] = week view, view[2] = day view
 let date = new Date();
 let month = date.getMonth();
 let year = date.getFullYear();
-const dailyTasks = document.querySelector(".dailyTasks");
+const dailyTasks = document.querySelector('.dailyTasks');
 
 renderCalendar(month, year);
 getDailyTask();
 
-const calendarDay = document.getElementsByClassName(".calendar-day");
-
+const calendarDay = document.getElementsByClassName('.calendar-day');
 
 function renderCalendar(month, year) {
-  calendarDates.innerHTML = "";
+  calendarDates.innerHTML = '';
   monthYear.textContent = `${months[month]} ${year}`;
 
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
   for (let i = 0; i < firstDay; i++) {
-    const empty = document.createElement("div");
+    const empty = document.createElement('div');
     calendarDates.appendChild(empty);
   }
   for (let i = 1; i <= daysInMonth; i++) {
     const day = document.createElement('div');
-    day.classList.add("calendar-day")
+    day.classList.add('calendar-day');
     day.textContent = i;
     daySetup(day);
     calendarDates.appendChild(day);
   }
 }
-prevDateBtn.onclick = function() {
+prevDateBtn.onclick = function () {
   const daysInPrevMonth = new Date(year, month, 0).getDate();
-    month--;
+  month--;
   if (month < 0) {
     month = 11;
     year--;
-  }   
+  }
   renderCalendar(month, year);
 };
 
-nextDateBtn.onclick = function() {
-  const daysInMonth = new Date(year, month+1, 0).getDate();
-    month++;
+nextDateBtn.onclick = function () {
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  month++;
   if (month > 11) {
     month = 0;
     year++;
@@ -69,28 +81,30 @@ nextDateBtn.onclick = function() {
   renderCalendar(month, year);
 };
 
-
 function getDailyTask() {
-  let today = new Date()
-  let tDay = today.getDay()
-  let tMonth = today.getMonth()
-  let tYear = today.getFullYear()
-  let seed = Math.floor(((tYear*tDay/3**tMonth/2)+tYear+tMonth+tDay)**(1/tMonth)**tDay);
+  let today = new Date();
+  let tDay = today.getDay();
+  let tMonth = today.getMonth();
+  let tYear = today.getFullYear();
+  let seed = Math.floor(
+    ((tYear * tDay) / 3 ** tMonth / 2 + tYear + tMonth + tDay) **
+      ((1 / tMonth) ** tDay),
+  );
   let taskNumber = seed % tasks.length;
   const task = document.createElement('div');
-  task.textContent = "Daily Task: " + `${tasks[taskNumber]}`;
+  task.textContent = 'Daily Task: ' + `${tasks[taskNumber]}`;
   dailyTasks.appendChild(task);
 }
 
 function daySetup(day) {
-  day.addEventListener("click", function(e) {
+  day.addEventListener('click', function (e) {
     openDayView(day);
   });
 }
 
 function openDayView(day) {
-  daysOfWeek.innerHTML = "";
-  calendarDates.innerHTML = "";
+  daysOfWeek.innerHTML = '';
+  calendarDates.innerHTML = '';
 }
 
 if (sessionStorage.getItem('loggedIn') == 'true') {
@@ -102,4 +116,27 @@ if (sessionStorage.getItem('loggedIn') == 'true') {
   document.getElementById('accountBtn').innerHTML = 'Log Out';
   document.getElementById('accountBtn').href = '';
   document.getElementById('accountBtn').onclick = logOut;
+}
+
+function askAi() {
+  const question = prompt('What would you like to ask AI?');
+
+  fetch('/ai', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      question,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.error) {
+        alert(data.error);
+      } else {
+        console.log(data);
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error.message);
+    });
 }

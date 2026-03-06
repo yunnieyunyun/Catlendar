@@ -7,23 +7,33 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <header>
+      <p id="name">
+        <span
+          ><span style="font-weight: bold">Welcome: </span>Log in to display
+          name
+        </span>
+      </p>
+      <div>
+        <a href="information.html" id="infoBtn">Cat Information</a>
+        <a href="account_page/account.html" id="accountBtn"
+          >Login / Create Account</a
+        >
+      </div>
+    </header>
     <div id="ai">
-      <img src="piccatss/catAi.png" alt="catai" onclick="openAi()" />
+      <img src="piccatss/catAi.png" alt="catai" onclick="askAi()" />
     </div>
-    <h1>Hello World!</h1>
-    <p id="loggedIn"><span style="font-weight: bold">LoggedIn: </span></p>
-    <p id="name"><span style="font-weight: bold">Name: </span></p>
-    <img src="assets/image.png" alt="cat" />
-<<<<<<< HEAD
+    <div id="welcome">
+      <h1>Catlendar</h1>
+      <p>A place to love your cat and be productive</p>
+    </div>
+    <br />
+    =======
     <a href="account_page/account.html" id="accountBtn"
       >Login / Create Account</a
     >
     <br />
-    <button id="viewSwitcher">Switch Views</button>
-=======
-    <a href="account_page/account.html" id="accountBtn">Login / Create Account</a>
-    <br>
->>>>>>> e8245851fd51d23de7d8a482005df729d8708dac
     <div class="calendarHeader">
       <button id="prevDateButton">prev</button>
       <div id="monthYear"></div>
@@ -39,24 +49,14 @@
         <div>Fri</div>
         <div>Sat</div>
       </div>
-<<<<<<< HEAD
       <div class="calendarDates"></div>
-=======
-      <div class="calendarDates">
-        
-      </div>
-      <div class="dayView">
-        
-      </div>
-    </div>
-    <div class="dailyTasks">
-
->>>>>>> e8245851fd51d23de7d8a482005df729d8708dac
+      =======
+      <div class="calendarDates"></div>
+      <div class="dayView"></div>
     </div>
     <div class="dailyTasks"></div>
-    <div>
-      <a href="information.html">Cat Information</a>
-    </div>
+    <div class="dailyTasks"></div>
+    <div></div>
   </body>
   <script src="script.js"></script>
 </html>
