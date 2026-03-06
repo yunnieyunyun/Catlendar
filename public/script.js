@@ -53,7 +53,6 @@ const calendarDay = document.getElementsByClassName('.calendar-day');
 
 function renderCalendar(month, year) {
   calendarDates.innerHTML = '';
-  dayView.innerHTML = '';
   daysOfWeek.innerHTML =
     '<div>Sun</div>\n<div>Mon</div>\n<div>Tue</div>\n<div>Wed</div>\n<div>Thu</div>\n<div>Fri</div>\n<div>Sat</div>';
   monthYear.textContent = `${months[month]} ${year}`;
