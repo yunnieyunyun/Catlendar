@@ -134,7 +134,7 @@ function renderDayView(day) {
 
 if (sessionStorage.getItem('loggedIn') == 'true') {
   document.getElementById('name').innerHTML =
-    `<p id="name"><span style="font-weight: bold;">Name: </span>${sessionStorage.getItem('name')}</p>`;
+    `<span style="font-weight: bold">Welcome: </span>${sessionStorage.getItem('name')}`;
   document.getElementById('loggedIn').innerHTML =
     `<p id="loggedIn"><span style="font-weight: bold;">LoggedIn: </span>${sessionStorage.getItem('loggedIn')}</p>`;
 
