@@ -21,7 +21,6 @@ async function askGemini(prompt) {
     return result.text;
   } catch (err) {
     console.error('Gemini error:', err);
-    throw err;
   }
 }
 

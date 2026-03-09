@@ -132,6 +132,29 @@ function renderDayView(day) {
   }
 }
 
+function askAi() {
+  const question = prompt('What would you like to ask AI?');
+
+  fetch('/ai', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      question,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.error) {
+        alert(data.error);
+      } else {
+        console.log(data);
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error.message);
+    });
+}
+
 if (sessionStorage.getItem('loggedIn') == 'true') {
   document.getElementById('name').innerHTML =
     `<span style="font-weight: bold">Welcome: </span>${sessionStorage.getItem('name')}`;
