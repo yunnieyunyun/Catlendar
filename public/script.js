@@ -95,11 +95,11 @@ nextDateBtn.onclick = function () {
   renderCalendar(month, year);
 };
 
-markDoneButton.onclick = function() {
+markDoneButton.onclick = function () {
   const done = document.createElement('div');
-  done.textContent = "Complete! + 10 points";
+  done.textContent = 'Complete! + 10 points';
   dailyTasks.appendChild(done);
-}
+};
 /*Eve Ang*/
 function getDailyTask() {
   let today = new Date();
@@ -154,6 +154,7 @@ function askAi() {
         alert(data.error);
       } else {
         console.log(data);
+        alert(data);
       }
     })
     .catch((error) => {
@@ -164,8 +165,6 @@ function askAi() {
 if (sessionStorage.getItem('loggedIn') == 'true') {
   document.getElementById('name').innerHTML =
     `<span style="font-weight: bold">Welcome: </span>${sessionStorage.getItem('name')}`;
-  document.getElementById('loggedIn').innerHTML =
-    `<p id="loggedIn"><span style="font-weight: bold;">LoggedIn: </span>${sessionStorage.getItem('loggedIn')}</p>`;
 
   document.getElementById('accountBtn').innerHTML = 'Log Out';
   document.getElementById('accountBtn').href = '';
