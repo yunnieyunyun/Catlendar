@@ -143,6 +143,7 @@ function createEvent() {
   const time = "12:00"
   const event = document.createElement('div')
   event.textContent = title;
+  
 }
 
 function askAi() {
