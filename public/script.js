@@ -138,6 +138,13 @@ function renderDayView(day) {
   }
 }
 
+function createEvent() {
+  const title = prompt("Event Title:");
+  const time = "12:00"
+  const event = document.createElement('div')
+  event.textContent = title;
+}
+
 function askAi() {
   const question = prompt('What would you like to ask AI?');
 
