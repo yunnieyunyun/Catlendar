@@ -108,13 +108,11 @@ app.post('/logIn', (req, res) => {
 app.post('/ai', async (req, res) => {
   const { question } = req.body;
 
-  console.log(question);
-
   try {
     const response = await askGemini(question);
     return res.json({ answer: response });
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'AI request failed' });
   }
 });
