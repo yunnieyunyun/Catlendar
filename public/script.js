@@ -1,3 +1,8 @@
+import { Calendar } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+
 function logOut() {
   sessionStorage.setItem('loggedIn', false);
   sessionStorage.setItem('name', null);
