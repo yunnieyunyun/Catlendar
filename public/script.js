@@ -16,18 +16,20 @@ function logOut() {
 }
 const markDoneButton = document.getElementById('markAsDone');
 
-document.addEventListener('DOMContentLoaded', function() {
-  var calendarEl = document.getElementById('calendar');
 
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth',
-    headerToolbar: {
-    left: 'prev,next today',
-    center: 'title',
-    right: 'dayGridMonth,timeGridWeek,listWeek'
-  }})
-  calendar.render()
-});    
+let calendarEl = document.getElementById('calendar');
+
+let calendar = new Calendar(calendarEl, {
+  plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+  initialView: 'dayGridMonth',
+  headerToolbar: {
+  left: 'prev,next today',
+  center: 'title',
+  right: 'dayGridMonth,timeGridWeek'
+  }
+});
+calendar.render();
+
 getDailyTask();
 
 
