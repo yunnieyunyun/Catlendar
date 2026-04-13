@@ -1,20 +1,20 @@
 body {
-    background-color: #EADDCA;
+    background-color: #FFD1E3;
     color: #5C4033;
 	font-family: 'Playfair Display', serif;
 	cursor: url("piccatss/fishNorm.png"), auto; 
     }
 
     h1 {
-            color: #6F4E37;
+            color: FFD4E2;
     }
 
     h2 {
-            color: #834333
+            color: #834333;
     }
 
     h3 {
-            color: #6E260E
+            color: #6E260E;
     }
 
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
