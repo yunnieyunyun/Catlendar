@@ -1,20 +1,20 @@
 body {
     background-color: #FFD1E3;
-    color: #5C4033;
+    color: #000000;
 	font-family: 'Playfair Display', serif;
 	cursor: url("piccatss/fishNorm.png"), auto; 
     }
 
     h1 {
-            color: FFD4E2;
+            color: #FFF2F7;
     }
 
     h2 {
-            color: #834333;
+            color: #A3456A;
     }
 
     h3 {
-            color: #6E260E;
+            color: #A3456A;
     }
 
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
@@ -29,7 +29,7 @@ body {
         }
 
         .cat-card { /* Zeynep's code */
-            border: 3px solid #967969;
+            border: 3px solid #FCDBFF;
             border-radius: 12px;
             padding: 15px;
         }
@@ -61,7 +61,7 @@ body {
         .back-button { 
             display: inline-block;
             padding: 10px 15px; 
-            background-color: #6f4e37;
+            background-color: #FF87B6;
             color: white;
             text-decoration: none !important;
             border-radius: 8px; 
