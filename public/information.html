@@ -2,86 +2,7 @@
 <html>
 <head>
 	<title>Cat Breed Information</title>
-	        <style>
-
-			@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-
-				.grid-container { /* Zeynep's code */
-					display: grid;
-					grid-template-columns: repeat(2, 1fr);
-					gap: 20px;
-					padding: 20px;
-					max-width: 1400px;
-					margin: 0 auto;
-				}
-
-				.cat-card { /* Zeynep's code */
-					border: 3px solid #967969;
-					border-radius: 12px;
-					padding: 15px;
-				}
-
-				.card-body {
-					display: flex;
-					gap: 15px;
-				}
-
-				.cat-card img {
-					width: 180px;
-					height: 180px;
-					object-fit: cover;
-					border-radius: 8px;
-					flex-shrink: 0;
-				}
-				
-                body {
-                        background-color: #EADDCA;
-                        color: #5C4033;
-						font-family: 'Playfair Display', serif;
-						cursor: url("piccatss/fishNorm.png"), auto; 
-                }
-
-                h1 {
-                        color: #6F4E37;
-				}
-
-                h2 {
-                        color: #834333
-                }
-
-                h3 {
-                        color: #6E260E
-                }
-
-				.cat-card {
-					transition: transform 0.3s ease, box-shadow 0.3s ease;
-				}
-
-				.cat-card:hover {
-					transform: translateY(-10px);
-					box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-					cursor: url("piccatss/fishHover.png"), auto; 
-				}
-
-				/* Yun's code */
-				
-				.back-button { 
-					display: inline-block;
-					padding: 10px 15px; 
-					background-color: #6f4e37;
-					color: white;
-					text-decoration: none !important;
-					border-radius: 8px; 
-					margin: 10px 20px;
-					transition: background-color 0.3s ease;
-				}
-
-				.back-button:hover {
-					background-color: #834333;
-					cursor: url("piccatss/fishHover.png"), auto;
-
-				}
-        </style>
+	<link rel="stylesheet" href="infostyle.css" />
 
 </head> 
 <body>
@@ -157,7 +78,10 @@
 </div>	
 
 	<div class="cat-card">
-	<img src ="./piccatss/scottishFold.png">
+		<h2>Scottish Fold</h2>
+		<div class="card-body">
+		<img src ="./piccatss/scottishFold.png">
+	<div>
 
 	<h2>Scottish Fold</h2>
 	<h3>Main Characteristics</h3>
@@ -268,7 +192,7 @@ Rutherford B. Hayes, by U.S. Consul David Stickles.</p>
 	<div class="cat-card">
 		<h2>Domestic Shorthair</h2>
 		<div class="card-body">
-		<img src ="./piccatss/domesticShorthair.jpg">
+		<img src ="./piccatss/domesticShortHair.webp">
 	<div>
 
 	<h3>Main Characteristics</h3>
