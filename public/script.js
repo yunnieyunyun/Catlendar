@@ -138,29 +138,92 @@ function renderDayView(day) {
   }
 }
 
-function askAi() {
-  const question = prompt('What would you like to ask AI?');
+function initAiChatWidget() {
+  const panel = document.getElementById('ai-chat-panel');
+  const launcher = document.getElementById('ai-launcher');
+  const minimizeBtn = document.getElementById('ai-chat-minimize');
+  const form = document.getElementById('ai-chat-form');
+  const input = document.getElementById('ai-chat-input');
+  const messagesEl = document.getElementById('ai-chat-messages');
+  const sendBtn = form.querySelector('.ai-chat-send');
 
-  fetch('/ai', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      question,
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
+  if (
+    !panel ||
+    !launcher ||
+    !minimizeBtn ||
+    !form ||
+    !input ||
+    !messagesEl ||
+    !sendBtn
+  )
+    return;
+
+  function setOpen(open) {
+    panel.classList.toggle('open', open);
+    panel.setAttribute('aria-hidden', open ? 'false' : 'true');
+    if (open) input.focus();
+  }
+
+  launcher.addEventListener('click', () => {
+    setOpen(!panel.classList.contains('open'));
+  });
+
+  minimizeBtn.addEventListener('click', () => setOpen(false));
+
+  function appendMessage(role, text) {
+    const div = document.createElement('div');
+    div.className = `ai-msg ai-msg--${role}`;
+    div.textContent = text;
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    return div;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const question = input.value.trim();
+    if (!question) return;
+
+    input.value = '';
+    appendMessage('user', question);
+
+    const loadingEl = appendMessage('assistant', '…');
+    loadingEl.classList.add('ai-msg--loading');
+
+    sendBtn.disabled = true;
+    input.disabled = true;
+
+    try {
+      const response = await fetch('/ai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question }),
+      });
+      const data = await response.json();
+      loadingEl.remove();
+
       if (data.error) {
-        alert(data.error);
+        appendMessage('error', data.error);
       } else {
-        console.log(data);
-        alert(data);
+        const answer =
+          typeof data.answer === 'string' && data.answer.length
+            ? data.answer
+            : 'No reply from the cat right now.';
+        appendMessage('assistant', answer);
       }
-    })
-    .catch((error) => {
-      console.error('Error:', error.message);
-    });
+    } catch (err) {
+      console.error('AI chat error:', err);
+      loadingEl.remove();
+      appendMessage('error', 'Something went wrong. Try again in a moment.');
+    } finally {
+      sendBtn.disabled = false;
+      input.disabled = false;
+      input.focus();
+    }
+  });
 }
+
+initAiChatWidget();
 
 if (sessionStorage.getItem('loggedIn') == 'true') {
   document.getElementById('name').innerHTML =

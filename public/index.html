@@ -18,12 +18,45 @@
         >
       </div>
     </header>
-    <div id="ai">
-      <img src="piccatss/catAi.png" alt="catai" onclick="askAi()" />
-    </div>
-    <div id="aiTab">
-      <p id="answer"></p>
-      <input type="text" name="" id="question" />
+    <div id="ai-widget">
+      <div
+        id="ai-chat-panel"
+        class="ai-chat-panel"
+        role="dialog"
+        aria-label="Cat AI chat"
+        aria-hidden="true"
+      >
+        <header class="ai-chat-header">
+          <span class="ai-chat-title">Cat AI</span>
+          <button
+            type="button"
+            class="ai-chat-minimize"
+            id="ai-chat-minimize"
+            aria-label="Minimize chat"
+          >
+            −
+          </button>
+        </header>
+        <div class="ai-chat-messages" id="ai-chat-messages"></div>
+        <form class="ai-chat-form" id="ai-chat-form">
+          <input
+            type="text"
+            id="ai-chat-input"
+            placeholder="Ask anything…"
+            autocomplete="off"
+            maxlength="2000"
+          />
+          <button type="submit" class="ai-chat-send">Send</button>
+        </form>
+      </div>
+      <button
+        type="button"
+        id="ai-launcher"
+        class="ai-launcher"
+        aria-label="Open Cat AI chat"
+      >
+        <img src="piccatss/catAi.png" alt="" />
+      </button>
     </div>
     <div id="welcome">
       <h1>Catlendar</h1>
@@ -46,9 +79,7 @@
         <div>Sat</div>
       </div>
       <div class="calendarDates"></div>
-      =======
-      <div class="calendarDates"></div>
-      <div class="dayView"></div>
+      <div id="dayView" class="dayView"></div>
     </div>
     <div class="dailyTasks"></div>
     <button id="markAsDone">Mark as Done</button>
