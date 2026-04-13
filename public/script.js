@@ -56,29 +56,136 @@ function getDailyTask() {
 }
 
 
-function askAi() {
-  const question = prompt('What would you like to ask AI?');
+function initAiChatWidget() {
+  const panel = document.getElementById('ai-chat-panel');
+  const backdrop = document.getElementById('ai-chat-backdrop');
+  const launcher = document.getElementById('ai-launcher');
+  const minimizeBtn = document.getElementById('ai-chat-minimize');
+  const form = document.getElementById('ai-chat-form');
+  const input = document.getElementById('ai-chat-input');
+  const messagesEl = document.getElementById('ai-chat-messages');
+  const sendBtn = form && form.querySelector('.ai-chat-send');
 
-  fetch('/ai', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      question,
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
+  if (
+    !panel ||
+    !launcher ||
+    !minimizeBtn ||
+    !form ||
+    !input ||
+    !messagesEl ||
+    !sendBtn
+  )
+    return;
+
+  const welcome = document.createElement('div');
+  welcome.className = 'ai-chat-welcome';
+  welcome.textContent =
+    'Meow! I’m your Cat AI — ask me anything. I’ll answer in short, cat-flavored replies.';
+  messagesEl.appendChild(welcome);
+
+  function setOpen(open) {
+    panel.classList.toggle('open', open);
+    panel.setAttribute('aria-hidden', open ? 'false' : 'true');
+    launcher.setAttribute('aria-expanded', open ? 'true' : 'false');
+    launcher.classList.toggle('is-open', open);
+    launcher.setAttribute(
+      'aria-label',
+      open ? 'Close Cat AI chat' : 'Open Cat AI chat',
+    );
+    if (backdrop) {
+      backdrop.classList.toggle('is-visible', open);
+      backdrop.setAttribute('aria-hidden', open ? 'false' : 'true');
+    }
+    if (open) input.focus();
+  }
+
+  launcher.addEventListener('click', () => {
+    setOpen(!panel.classList.contains('open'));
+  });
+
+  minimizeBtn.addEventListener('click', () => setOpen(false));
+
+  if (backdrop) {
+    backdrop.addEventListener('click', () => setOpen(false));
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && panel.classList.contains('open')) {
+      setOpen(false);
+    }
+  });
+
+  function appendMessage(role, text) {
+    const div = document.createElement('div');
+    div.className = `ai-msg ai-msg--${role}`;
+    div.textContent = text;
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    return div;
+  }
+
+  function appendTypingIndicator() {
+    const wrap = document.createElement('div');
+    wrap.className = 'ai-typing';
+    wrap.setAttribute('role', 'status');
+    for (let i = 0; i < 3; i += 1) {
+      wrap.appendChild(document.createElement('span'));
+    }
+    const live = document.createElement('span');
+    live.className = 'sr-only';
+    live.textContent = 'Cat AI is typing';
+    wrap.appendChild(live);
+    messagesEl.appendChild(wrap);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    return wrap;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const question = input.value.trim();
+    if (!question) return;
+
+    welcome.remove();
+
+    input.value = '';
+    appendMessage('user', question);
+
+    const typingEl = appendTypingIndicator();
+
+    sendBtn.disabled = true;
+    input.disabled = true;
+
+    try {
+      const response = await fetch('/ai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question }),
+      });
+      const data = await response.json();
+      typingEl.remove();
+
       if (data.error) {
-        alert(data.error);
+        appendMessage('error', data.error);
       } else {
-        console.log(data);
-        alert(data);
+        const answer =
+          typeof data.answer === 'string' && data.answer.length
+            ? data.answer
+            : 'No reply from the cat right now.';
+        appendMessage('assistant', answer);
       }
-    })
-    .catch((error) => {
-      console.error('Error:', error.message);
-    });
+    } catch (err) {
+      console.error('AI chat error:', err);
+      typingEl.remove();
+      appendMessage('error', 'Something went wrong. Try again in a moment.');
+    } finally {
+      sendBtn.disabled = false;
+      input.disabled = false;
+      input.focus();
+    }
+  });
 }
+
+initAiChatWidget();
 
 if (sessionStorage.getItem('loggedIn') == 'true') {
   document.getElementById('name').innerHTML =
