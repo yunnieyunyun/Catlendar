@@ -20,21 +20,30 @@
     </header>
     <div id="ai-widget">
       <div
+        id="ai-chat-backdrop"
+        class="ai-chat-backdrop"
+        aria-hidden="true"
+      ></div>
+      <div
         id="ai-chat-panel"
         class="ai-chat-panel"
         role="dialog"
         aria-label="Cat AI chat"
+        aria-modal="true"
         aria-hidden="true"
       >
         <header class="ai-chat-header">
-          <span class="ai-chat-title">Cat AI</span>
+          <div class="ai-chat-header-text">
+            <span class="ai-chat-title">Cat AI</span>
+            <span class="ai-chat-subtitle">Ask anything — replies in cat voice</span>
+          </div>
           <button
             type="button"
             class="ai-chat-minimize"
             id="ai-chat-minimize"
-            aria-label="Minimize chat"
+            aria-label="Close chat"
           >
-            −
+            ×
           </button>
         </header>
         <div class="ai-chat-messages" id="ai-chat-messages"></div>
@@ -54,6 +63,8 @@
         id="ai-launcher"
         class="ai-launcher"
         aria-label="Open Cat AI chat"
+        aria-expanded="false"
+        aria-controls="ai-chat-panel"
       >
         <img src="piccatss/catAi.png" alt="" />
       </button>
@@ -64,28 +75,7 @@
       <p>A place to love your cat and be productive</p>
     </div>
     <br />
-<<<<<<< HEAD
-    <div class="calendarHeader">
-      <button id="prevDateButton">prev</button>
-      <div id="monthYear"></div>
-      <button id="nextDateButton">next</button>
-    </div>
-    <div class="calendarBody">
-      <div id="daysOfWeek">
-        <div>Sun</div>
-        <div>Mon</div>
-        <div>Tue</div>
-        <div>Wed</div>
-        <div>Thu</div>
-        <div>Fri</div>
-        <div>Sat</div>
-      </div>
-      <div class="calendarDates"></div>
-      <div id="dayView" class="dayView"></div>
-=======
     <div id="calendar"></div>
->>>>>>> f27258a010306134c8771c58019102b879a79142
-    </div>
     <div class="dailyTasks"></div>
     <button id="markAsDone">Mark as Done</button>
     <div></div>

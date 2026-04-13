@@ -56,12 +56,13 @@ function getDailyTask() {
 
 function initAiChatWidget() {
   const panel = document.getElementById('ai-chat-panel');
+  const backdrop = document.getElementById('ai-chat-backdrop');
   const launcher = document.getElementById('ai-launcher');
   const minimizeBtn = document.getElementById('ai-chat-minimize');
   const form = document.getElementById('ai-chat-form');
   const input = document.getElementById('ai-chat-input');
   const messagesEl = document.getElementById('ai-chat-messages');
-  const sendBtn = form.querySelector('.ai-chat-send');
+  const sendBtn = form && form.querySelector('.ai-chat-send');
 
   if (
     !panel ||
@@ -74,9 +75,25 @@ function initAiChatWidget() {
   )
     return;
 
+  const welcome = document.createElement('div');
+  welcome.className = 'ai-chat-welcome';
+  welcome.textContent =
+    'Meow! I’m your Cat AI — ask me anything. I’ll answer in short, cat-flavored replies.';
+  messagesEl.appendChild(welcome);
+
   function setOpen(open) {
     panel.classList.toggle('open', open);
     panel.setAttribute('aria-hidden', open ? 'false' : 'true');
+    launcher.setAttribute('aria-expanded', open ? 'true' : 'false');
+    launcher.classList.toggle('is-open', open);
+    launcher.setAttribute(
+      'aria-label',
+      open ? 'Close Cat AI chat' : 'Open Cat AI chat',
+    );
+    if (backdrop) {
+      backdrop.classList.toggle('is-visible', open);
+      backdrop.setAttribute('aria-hidden', open ? 'false' : 'true');
+    }
     if (open) input.focus();
   }
 
@@ -85,6 +102,16 @@ function initAiChatWidget() {
   });
 
   minimizeBtn.addEventListener('click', () => setOpen(false));
+
+  if (backdrop) {
+    backdrop.addEventListener('click', () => setOpen(false));
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && panel.classList.contains('open')) {
+      setOpen(false);
+    }
+  });
 
   function appendMessage(role, text) {
     const div = document.createElement('div');
@@ -95,16 +122,33 @@ function initAiChatWidget() {
     return div;
   }
 
+  function appendTypingIndicator() {
+    const wrap = document.createElement('div');
+    wrap.className = 'ai-typing';
+    wrap.setAttribute('role', 'status');
+    for (let i = 0; i < 3; i += 1) {
+      wrap.appendChild(document.createElement('span'));
+    }
+    const live = document.createElement('span');
+    live.className = 'sr-only';
+    live.textContent = 'Cat AI is typing';
+    wrap.appendChild(live);
+    messagesEl.appendChild(wrap);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    return wrap;
+  }
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const question = input.value.trim();
     if (!question) return;
 
+    welcome.remove();
+
     input.value = '';
     appendMessage('user', question);
 
-    const loadingEl = appendMessage('assistant', '…');
-    loadingEl.classList.add('ai-msg--loading');
+    const typingEl = appendTypingIndicator();
 
     sendBtn.disabled = true;
     input.disabled = true;
@@ -116,7 +160,7 @@ function initAiChatWidget() {
         body: JSON.stringify({ question }),
       });
       const data = await response.json();
-      loadingEl.remove();
+      typingEl.remove();
 
       if (data.error) {
         appendMessage('error', data.error);
@@ -129,7 +173,7 @@ function initAiChatWidget() {
       }
     } catch (err) {
       console.error('AI chat error:', err);
-      loadingEl.remove();
+      typingEl.remove();
       appendMessage('error', 'Something went wrong. Try again in a moment.');
     } finally {
       sendBtn.disabled = false;
