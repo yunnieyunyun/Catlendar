@@ -22,32 +22,38 @@ body {
 
 #accountBtn {
   margin-right: 20px;
-  background-color: pink;
-  border-radius: 25px;
+  background-color: #ffaccc;
+  border-radius: 15px;
+  border : 2px solid #ffaccc;
   padding: 10px;
   text-decoration: none;
-  color: rgb(242, 8, 203);
+  color: rgb(57, 57, 105);
   transition: scale 0.2s ease-in-out;
 }
 
 #infoBtn {
   margin-right: 10px;
-  background-color: pink;
-  border-radius: 25px;
+  background-color: #ffaccc;
+  border-radius: 15px;
+  border : 2px solid #ffaccc;
   padding: 10px;
   text-decoration: none;
-  color: rgb(242, 8, 203);
+  color: rgb(57, 57, 105);
   transition: scale 0.2s ease-in-out;
 }
 
 #accountBtn:hover {
   scale: 0.9;
-  background-color: rgb(211, 156, 165);
+  background-color: rgb(183, 86, 134);
+  color: white; 
+  border: none;
 }
 
 #infoBtn:hover {
   scale: 0.9;
-  background-color: rgb(211, 156, 165);
+  background-color: rgb(183, 86, 134);
+  color: white;
+  border : none;
 }
 
 #daysOfWeek,
@@ -373,13 +379,13 @@ header {
   justify-content: space-between;
   width: 100vw;
   height: 75px;
-  background-color: rgb(219, 112, 130);
-  box-shadow: 0 8px 6px -6px black;
+  background-color: #e081a6;
+  box-shadow: 0 8px 6px -6px #ffdeb5;
 }
 
 #name {
-  font-size: large;
-  color: rgb(220, 220, 220);
+  font-size: 150%;
+  color: #313377;
 }
 
 #welcome {
