@@ -49,6 +49,10 @@ body {
             flex-shrink: 0;
         }
 
+        .cat-card img:hover { 
+            cursor: url("piccatss/fishSmug.png"), auto;
+        }
+
         .cat-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -72,6 +76,6 @@ body {
         }
 
         .back-button:hover {
-					background-color: #834333;
-					cursor: url("piccatss/fishHover.png"), auto;
+			background-color: #834333;
+			cursor: url("piccatss/fishHover.png"), auto;
         }
