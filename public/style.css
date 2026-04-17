@@ -415,3 +415,15 @@ header {
 #welcome p {
   font-size: 3vw;
 }
+
+.title-box {
+  background-color: rgba(255, 255, 255, 0.2)
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4)
+  border-radius: 16px;
+  padding: 30px 60px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  display: inline-block;
+  text-align: center;
+  margin-top: 80px;
+}
