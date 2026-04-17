@@ -1,8 +1,3 @@
-import { Calendar } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
-
 function logOut() {
   sessionStorage.setItem('loggedIn', false);
   sessionStorage.setItem('name', null);
@@ -15,23 +10,6 @@ function logOut() {
   document.getElementById('accountBtn').href = 'account_page/account.html';
 }
 const markDoneButton = document.getElementById('markAsDone');
-
-
-let calendarEl = document.getElementById('calendar');
-
-let calendar = new Calendar(calendarEl, {
-  plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-  initialView: 'dayGridMonth',
-  headerToolbar: {
-  left: 'prev,next today',
-  center: 'title',
-  right: 'dayGridMonth,timeGridWeek'
-  }
-});
-calendar.render();
-
-getDailyTask();
-
 
 
 markDoneButton.onclick = function () {
