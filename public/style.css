@@ -395,7 +395,7 @@ header {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  color: rgb(62, 94, 168);
+  color: rgba(67, 72, 105);
 }
 
 .welcome-gif { 
@@ -410,6 +410,7 @@ header {
 
 #welcome h1 {
   font-size: 10vw;
+  color: rgba(67, 72, 105)
 }
 
 #welcome p {
