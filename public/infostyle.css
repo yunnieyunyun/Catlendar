@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 body {
+    margin: 0;
     background-color: #FFD1E3;
     color: #000000;
 	font-family: 'Playfair Display', serif;
@@ -31,7 +32,7 @@ body {
 
         .cat-card { /* Zeynep's code */
             background-color: #FFF2F7;
-            border: 3px solid #FF87B6;
+            border: 3px solid #F7B2C9;
             border-radius: 12px;
             padding: 15px;
         }
@@ -67,7 +68,7 @@ body {
         .back-button { 
             display: inline-block;
             padding: 10px 15px; 
-            background-color: #FF87B6;
+            background-color: #FC6DA5;
             color: white;
             text-decoration: none !important;
             border-radius: 8px; 
@@ -76,6 +77,18 @@ body {
         }
 
         .back-button:hover {
-			background-color: #834333;
+			background-color: #FFD4E2;
 			cursor: url("piccatss/fishHover.png"), auto;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content; space-between;
+            padding: 0;
+            margin: 0;
+            height: 75px;
+            width: 100%;
+            background-color: #FF91BC;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
