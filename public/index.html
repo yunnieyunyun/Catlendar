@@ -9,13 +9,18 @@
     <script>
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
-      var calendar = new FullCalendar.Calendar(calendarEl, {
+      var calendar = new FullCalendar.Calendar(calendarEl,
+       {
         initialView: 'dayGridMonth',
         headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-      },
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+          },
+        selectable: true,
+        dateClick: function(info) {
+          alert('Clicked ' + info.dateStr);
+        }
       });
       calendar.render();
     });
