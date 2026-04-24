@@ -20,7 +20,15 @@
         selectable: true,
         dateClick: function(info) {
           alert('Clicked ' + info.dateStr);
-        }
+        },
+        events: [
+          {
+            id: "test",
+            title: "9/11 Day",
+            start: "2026-09-11",
+            end: "2026-09-12"
+          }
+        ]
       });
       calendar.render();
     });
