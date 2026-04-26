@@ -1,0 +1,138 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+body {
+    margin: 0;
+    background-color: #FFD1E3;
+    color: #000000;
+	font-family: 'Playfair Display', serif;
+	cursor: url("piccatss/fishNorm.png"), auto; 
+    overflow-x: hidden;
+    }
+
+    h1 {
+            color: #69213D;
+    }
+
+    h2 {
+            color: #A3456A;
+    }
+
+    h3 {
+            color: #A3456A;
+    }
+
+        .grid-container { /* Zeynep's code */
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 40px;
+            padding: 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .cat-card { /* Zeynep's code */
+            background-color: #FFF2F7;
+            border: 3px solid #F7B2C9;
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .card-body {
+            display: flex;
+            gap: 15px;
+        }
+
+        .cat-card img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .cat-card img:hover { 
+            cursor: url("piccatss/fishSmug.png"), auto;
+        }
+
+        .cat-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            cursor: url("piccatss/fishHover.png"), auto; 
+        }
+
+        .container {
+            width: 250px;
+            margin-left: auto;
+            padding-right: 15px;
+        }
+
+        .search-bar button img {
+            width: 12px;
+            height: 12px;
+        }
+
+        .search-bar button {
+            border: 0;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            background: #ffbdd7;
+            cursor: pointer;
+        }
+
+        .search-bar {
+            background: rgba(255, 255, 255, 0.4);
+            display: flex;
+            align-items: center;
+            border-radius: 60px;
+            padding: 5px 12px;
+            backdrop-filter: blur(4px) saturate(180%);
+        }
+
+        .search-bar input {
+            background: transparent;
+            flex: 1;
+            border: 0;
+            outline: none;
+            padding: 10px 7px;
+            font-size: 12px;
+            color: #69213D;
+        }
+
+        ::placeholder {
+            color: #ffdeeb
+        }
+
+        /* Yun's code */
+        .back-button { 
+            display: inline-block;
+            padding: 10px 15px; 
+            background-color: #FC6DA5;
+            color: white;
+            text-decoration: none !important;
+            border-radius: 8px; 
+            margin: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+			background-color: #FFD4E2;
+			cursor: url("piccatss/fishHover.png"), auto;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0;
+            margin: 0;
+            height: 75px;
+            width: 100%;
+            background-color: #FF91BC;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
