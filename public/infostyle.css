@@ -64,6 +64,49 @@ body {
             cursor: url("piccatss/fishHover.png"), auto; 
         }
 
+        .container {
+            width: 250px;
+            margin-left: auto;
+            padding-right: 15px;
+        }
+
+        .search-bar button img {
+            width: 12px;
+            height: 12px;
+        }
+
+        .search-bar button {
+            border: 0;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            background: #ffbdd7;
+            cursor: pointer;
+        }
+
+        .search-bar {
+            background: rgba(255, 255, 255, 0.4);
+            display: flex;
+            align-items: center;
+            border-radius: 60px;
+            padding: 5px 12px;
+            backdrop-filter: blur(4px) saturate(180%);
+        }
+
+        .search-bar input {
+            background: transparent;
+            flex: 1;
+            border: 0;
+            outline: none;
+            padding: 10px 7px;
+            font-size: 12px;
+            color: #69213D;
+        }
+
+        ::placeholder {
+            color: #ffdeeb
+        }
+
         /* Yun's code */
         .back-button { 
             display: inline-block;
@@ -84,7 +127,7 @@ body {
         header {
             display: flex;
             align-items: center;
-            justify-content; space-between;
+            justify-content: space-between;
             padding: 0;
             margin: 0;
             height: 75px;
