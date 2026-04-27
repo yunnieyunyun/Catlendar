@@ -485,5 +485,10 @@ header {
 }
 
 #calendar {
-  max-height: 400px;
+  max-width: 860px;
+  margin: 60px auto 20px;
+  padding: 16px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #ddd;
 }
