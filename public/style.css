@@ -405,7 +405,7 @@ header {
   width: 100vw;
   height: 75px;
   background-color: #e081a6;
-  box-shadow: 0 8px 6px -6px #ffdeb5;
+  box-shadow: 0 8px 20px -6px rgba(67, 72, 105);
 }
 
 #name {
