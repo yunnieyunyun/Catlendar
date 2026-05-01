@@ -10,7 +10,10 @@ function logOut() {
   document.getElementById('accountBtn').href = 'account_page/account.html';
 }
 const markDoneButton = document.getElementById('markAsDone');
+const dailyTasks = document.getElementById('dailyTasks');
 
+const tasks = ["Drink water!", "Check in with a friend!", "Visit a park!", "Pet your cat!", "Give your cat a treat!", "Hang out with your friends!", "Get some exercise!", "Eat a healthy snack!"]
+getDailyTask()
 
 markDoneButton.onclick = function () {
   const done = document.createElement('div');
