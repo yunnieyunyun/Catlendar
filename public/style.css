@@ -64,7 +64,7 @@ body {
   border: 2px solid #ffaccc;
   padding: 10px;
   text-decoration: none;
-  color: rgb(57, 57, 105);
+  color: rgba(67, 72, 105);
   transition: scale 0.2s ease-in-out;
 }
 
@@ -75,7 +75,7 @@ body {
   border: 2px solid #ffaccc;
   padding: 10px;
   text-decoration: none;
-  color: rgb(57, 57, 105);
+  color: rgba(67, 72, 105);
   transition: scale 0.2s ease-in-out;
 }
 
@@ -438,8 +438,10 @@ header {
 }
 
 #name {
+  display: flex;
+  align-items: center;
   font-size: 150%;
-  color: #313377;
+  color: rgba(67, 72, 105);
 }
 
 #welcome {
