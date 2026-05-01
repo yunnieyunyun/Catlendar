@@ -42,20 +42,6 @@ body {
   background-color: pink;
   font-family: 'Playfair Display', serif;
 }
-
-.calendarHeader {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  text-align: center;
-}
-
-.calendar-weekdays,
-.calendar-dates {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  text-align: center;
-}
-
 /*Eve Ang*/
 #accountBtn {
   margin-right: 20px;
@@ -93,25 +79,10 @@ body {
   border: none;
 }
 
-#daysOfWeek,
-.calendarDates {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  text-align: center;
+#completeCalendar {
+  margin: auto;
 }
 
-#monthYear {
-  text-align: center;
-}
-
-#prevDateButton {
-}
-
-#nextDateButton {
-}
-
-#viewSwitcher {
-}
 
 /*Eve Ang*/
 #ai-widget {
