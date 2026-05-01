@@ -128,22 +128,68 @@
         </td>
         <td class="calendarData">
           <form id="eventForm">
-            <div id="eInput">
+            <div class="eInput">
               <div id="eLabel"><label for="eName">Event Name</label></div>
               <input 
-                type="eventName"
+                type="text"
                 id="eName"
                 placeholder="Event Name"
                 required
               />
             </div>
-            <div id="eInput">
-              <div id="eLabel"><label for="eDate">Date</label></div>
+            <div class="eInput">
+              <div class="eLabel"><label for="eDate">Date</label></div>
               <input 
                 value=""
-                type="eventDate"
+                type="text"
                 id="eDate"
                 placeholder="Enter a date (YYYY-MM-DD)"
+                required
+                />
+            </div>
+            <div class="eInput">
+              <span class="eLabel"><label for="eAllDay">All Day</label></span>
+              <input 
+                value=""
+                type="checkbox"
+                id="eAllDay"
+                
+                />
+            <div class="eInput">
+              <div class="eLabel"><label for="eStart">Event Start Time</label></div>
+              <input 
+                value=""
+                type="text"
+                id="eStart"
+                placeholder="Enter a time (HH:MM)"
+                
+                />
+            </div>
+            <div class="eInput">
+              <div class="eLabel"><label for="eStart">Event Start Time</label></div>
+              <input 
+                value=""
+                type="text"
+                id="eStart"
+                placeholder="Enter a time (HH:MM)"
+                
+                />
+            </div>
+            <div class="eInput">
+              <div class="eLabel"><label for="eEnd">Event End Time</label></div>
+              <input 
+                value=""
+                type="eventEnd"
+                id="eEnd"
+                placeholder="Enter a time (HH:MM)"
+                required
+                />
+            </div>
+            <div class="eInput">
+              <input 
+                type="submit"
+                id="eSubmit"
+                value="Add Event"
                 required
                 />
             </div>
