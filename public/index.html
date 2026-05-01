@@ -9,6 +9,7 @@
     <script>
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
+      var eDate = document.getElementById('eDate');
       var calendar = new FullCalendar.Calendar(calendarEl,
        {
         initialView: 'dayGridMonth',
@@ -17,9 +18,10 @@
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay'
           },
+        nowIndicator: true,
         selectable: true,
         dateClick: function(info) {
-          alert('Clicked ' + info.dateStr);
+          eDate.value = info.dateStr;
         },
         events: [
           {
@@ -114,10 +116,40 @@
       </div>
     </div>
     <br />
-    <div id="calendar"></div>
-    <div class="dailyTasks"></div>
-    <button id="markAsDone">Mark as Done</button>
-    <div></div>
+    <table id="completeCalendar">
+      <tr>
+        <td>
+          <div class="dailyTasks"></div>
+          <button id="markAsDone">Mark as Done</button>
+        </td>
+        <td>
+          <div id="calendar"></div>
+        </td>
+        <td>
+          <form id="eventForm">
+            <div id="eInput">
+              <div id="eLabel"><label for="eName">Event Name</label></div>
+              <input 
+                type="eventName"
+                id="eName"
+                placeholder="Event Name"
+                required
+              />
+            </div>
+            <div id="eInput">
+              <div id="eLabel"><label for="eDate">Date</label></div>
+              <input 
+                value=""
+                type="eventDate"
+                id="eDate"
+                placeholder="Enter a date (MM-DD-YYYY)"
+                required
+                />
+            </div>
+          </form>
+        </td>
+      </tr>
+    </table>
   </body>
   <script src="script.js"></script>
 </html>
