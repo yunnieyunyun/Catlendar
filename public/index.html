@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cat</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.js'></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var eDate = document.getElementById('eDate');
+      var calendar = new FullCalendar.Calendar(calendarEl,
+       {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+          },
+        nowIndicator: true,
+        selectable: true,
+        dateClick: function(info) {
+          dates = info.dateStr.split("T")
+          eDate.value = dates[0];
+        },
+        events: [
+          {
+            id: "test",
+            title: "9/11 Day",
+            start: "2026-09-11",
+            end: "2026-09-12"
+          }
+        ]
+      });
+      calendar.render();
+    });
+  </script>
+  </head>
+  <body>
+    <div id="intro">
+      <div id="intro-opening">
+        <p>🐾</p>
+      </div>
+    </div>
+    <header>
+      <p id="name">
+        <img src="logo.jpg" alt="logo" id="logo" />
+
+        <span style="font-weight: bold">Welcome: </span>Log in to displayname
+      </p>
+      <div>
+        <a href="information.html" id="infoBtn">Cat Information</a>
+        <a href="account_page/account.html" id="accountBtn"
+          >Login / Create Account</a
+        >
+      </div>
+    </header>
+    <div id="ai-widget">
+      <div
+        id="ai-chat-backdrop"
+        class="ai-chat-backdrop"
+        aria-hidden="true"
+      ></div>
+      <div
+        id="ai-chat-panel"
+        class="ai-chat-panel"
+        role="dialog"
+        aria-label="Cat AI chat"
+        aria-modal="true"
+        aria-hidden="true"
+      >
+        <header class="ai-chat-header">
+          <div class="ai-chat-header-text">
+            <span class="ai-chat-title">Cat AI</span>
+            <span class="ai-chat-subtitle"
+              >Ask anything — replies in cat voice</span
+            >
+          </div>
+          <button
+            type="button"
+            class="ai-chat-minimize"
+            id="ai-chat-minimize"
+            aria-label="Close chat"
+          >
+            ×
+          </button>
+        </header>
+        <div class="ai-chat-messages" id="ai-chat-messages"></div>
+        <form class="ai-chat-form" id="ai-chat-form">
+          <input
+            type="text"
+            id="ai-chat-input"
+            placeholder="Ask anything…"
+            autocomplete="off"
+            maxlength="2000"
+          />
+          <button type="submit" class="ai-chat-send">Send</button>
+        </form>
+      </div>
+      <button
+        type="button"
+        id="ai-launcher"
+        class="ai-launcher"
+        aria-label="Open Cat AI chat"
+        aria-expanded="false"
+        aria-controls="ai-chat-panel"
+      >
+        <img src="piccatss/catAi.png" alt="" />
+      </button>
+    </div>
+    <div id="welcome">
+      <img src="assets/calenderBG.gif" class="welcome-gif" />
+      <div class="title-box">
+        <h1>Catlendar</h1>
+        <p>A place to love your cat and be productive</p>
+      </div>
+    </div>
+    <br />
+    <table id="completeCalendar">
+      <tr id="infoRow">
+        <td class="calendarData">
+          <div id="dailyTasks"></div>
+          <button id="markAsDone">Mark as Done</button>
+        </td>
+        <td class="calendarData">
+          <div id="calendar"></div>
+        </td>
+        <td class="calendarData">
+          <form id="eventForm">
+            <div class="eInput">
+              <div id="eLabel"><label for="eName">Event Name</label></div>
+              <input 
+                type="text"
+                id="eName"
+                placeholder="Event Name"
+                required
+              />
+            </div>
+            <div class="eInput">
+              <div class="eLabel"><label for="eDate">Date</label></div>
+              <input 
+                value=""
+                type="text"
+                id="eDate"
+                placeholder="Enter a date (YYYY-MM-DD)"
+                required
+                />
+            </div>
+            <div class="eInput">
+              <span class="eLabel"><label for="eAllDay">All Day</label></span>
+              <input 
+                value=""
+                type="checkbox"
+                id="eAllDay"
+                
+                />
+            <div class="eInput">
+              <div class="eLabel"><label for="eStart">Event Start Time</label></div>
+              <input 
+                value=""
+                type="text"
+                id="eStart"
+                placeholder="Enter a time (HH:MM)"
+                
+                />
+            </div>
+            <div class="eInput">
+              <div class="eLabel"><label for="eStart">Event Start Time</label></div>
+              <input 
+                value=""
+                type="text"
+                id="eStart"
+                placeholder="Enter a time (HH:MM)"
+                
+                />
+            </div>
+            <div class="eInput">
+              <div class="eLabel"><label for="eEnd">Event End Time</label></div>
+              <input 
+                value=""
+                type="eventEnd"
+                id="eEnd"
+                placeholder="Enter a time (HH:MM)"
+                required
+                />
+            </div>
+            <div class="eInput">
+              <input 
+                type="submit"
+                id="eSubmit"
+                value="Add Event"
+                required
+                />
+            </div>
+          </form>
+        </td>
+      </tr>
+    </table>
+  </body>
+  <script src="script.js"></script>
+</html>
