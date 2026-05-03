@@ -477,7 +477,8 @@ header {
   max-width: 860px;
   margin: 60px auto 20px;
   padding: 16px;
-  background: rgb(255, 132, 234);
+  background: rgb(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
   border-radius: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
