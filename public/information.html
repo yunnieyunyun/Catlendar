@@ -399,5 +399,22 @@ Vankedisi” or "Van Kedi".The Van’s body is often compared to a swimmer’s b
 	
 </script>
 
+<script>
+	document.addEventListener('keyup', searchResult);
+	function searchResult() {
+		let input = document.getElementById('searchInput').value;
+		input = input.toLowerCase();
+		let cards = document.querySelectorAll('.cat-card');
+		for (let i = 0; i < cards.length; i++) {
+			let name = cards[i].querySelector('h2').innerHTML.toLowerCase()
+			if (!name.includes(input)) {
+				cards[i].style.display = 'none';
+			} else {
+				cards[i].style.display = 'block';
+			}
+		}
+	}
+</script>
+
 </body>
 </html>
