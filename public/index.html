@@ -10,6 +10,8 @@
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
       var eDate = document.getElementById('eDate');
+      var eStart = document.getElementById('eStart');
+      var eEnd = document.getElementById('eEnd');
       var calendar = new FullCalendar.Calendar(calendarEl,
        {
         initialView: 'dayGridMonth',
@@ -23,6 +25,9 @@
         dateClick: function(info) {
           dates = info.dateStr.split("T")
           eDate.value = dates[0];
+          if (dates.length > 1){
+            eStart.value = dates[1].substring(0,8);
+          }
         },
         events: [
           {
@@ -159,27 +164,18 @@
               <div class="eLabel"><label for="eStart">Event Start Time</label></div>
               <input 
                 value=""
-                type="text"
+                type="time"
                 id="eStart"
                 placeholder="Enter a time (HH:MM)"
                 
                 />
             </div>
-            <div class="eInput">
-              <div class="eLabel"><label for="eStart">Event Start Time</label></div>
-              <input 
-                value=""
-                type="text"
-                id="eStart"
-                placeholder="Enter a time (HH:MM)"
-                
-                />
             </div>
             <div class="eInput">
               <div class="eLabel"><label for="eEnd">Event End Time</label></div>
               <input 
                 value=""
-                type="eventEnd"
+                type="time"
                 id="eEnd"
                 placeholder="Enter a time (HH:MM)"
                 required
