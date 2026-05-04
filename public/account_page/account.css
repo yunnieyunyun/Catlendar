@@ -8,12 +8,19 @@ body {
   font-family:
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
     Cantarell, sans-serif;
-  background: linear-gradient(135deg, #ffb5db 0%, #8988c6 100%);
+  background-color: rgba(190, 156, 207);
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
+}
+
+.cat-gif {
+  width: 100%;
+  max-width: 400px;
+  display: block;
 }
 
 .container {
