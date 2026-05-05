@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 * {
@@ -22,9 +21,16 @@
 }
 
 @keyframes introFade {
-  0% { opacity: 1;}
-  50% { opacity: 1;}
-  100% { opacity: 0; visibility: hidden;}
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 #intro-opening {
@@ -32,15 +38,26 @@
 }
 
 @keyframes bounceIn {
-  0% { transform: scale(0.3); opacity: 0; }
-  50% { transform: scale(1.1); opacity: 1; }
-  75% { transform: scale(0.85); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  75% {
+    transform: scale(0.85);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 body {
   background-color: pink;
   font-family: 'Playfair Display', serif;
+  overflow-x: hidden;
 }
 /*Eve Ang*/
 #accountBtn {
@@ -82,7 +99,6 @@ body {
 #completeCalendar {
   margin: auto;
 }
-
 
 /*Eve Ang*/
 #ai-widget {
@@ -405,7 +421,7 @@ header {
   width: 100vw;
   height: 75px;
   background-color: #e081a6;
-  box-shadow: 0 8px 6px -6px #ffdeb5;
+  box-shadow: 0 8px 20px -6px rgba(67, 72, 105);
 }
 
 #name {
@@ -461,7 +477,8 @@ header {
   max-width: 860px;
   margin: 60px auto 20px;
   padding: 16px;
-  background: white;
+  background: rgb(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
   border-radius: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
