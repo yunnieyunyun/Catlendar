@@ -138,3 +138,34 @@ body {
             background-color: #FF91BC;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
+        #scrollTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            border-radius: 20px;
+            width: 70px;
+            height: 70px;
+            backdrop-filter: blur(5px);
+            padding: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #scrollTopBtn:hover {
+             transform: translateX(-50%);
+             width: 90px;
+             height: 90px;
+        }
+
+        #scrollTopBtn img {
+            width: 100%;
+            height: 100%;
+        }
