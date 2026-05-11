@@ -18,7 +18,7 @@
 
 <button id="scrollTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
 	<img src="piccatss/catpaw.png">
-	<span class="scroll-text"Scroll to top"</span.
+	<span class="scroll-text">Scroll to top</span>
 </button>
 
 <center>
@@ -424,14 +424,15 @@ Vankedisi” or "Van Kedi".The Van’s body is often compared to a swimmer’s b
 
 <script>
 	window.addEventListener('scroll', function() {
-		let btn = document.getElementById('scroll'):
+		let btn = document.getElementById('scrollTopBtn');
 		let scrolledToBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
-		if (scrollToBottom) {
+		if (scrolledToBottom) {
 			btn.style.display = 'block';
 		} else {
 			btn.style.display = 'none';
 		}
-	}
+});
+</script>
 
 </body>
 </html>
