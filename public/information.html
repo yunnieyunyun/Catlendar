@@ -422,5 +422,16 @@ Vankedisi” or "Van Kedi".The Van’s body is often compared to a swimmer’s b
 	}
 </script>
 
+<script>
+	window.addEventListener('scroll', function() {
+		let btn = document.getElementById('scroll'):
+		let scrolledToBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
+		if (scrollToBottom) {
+			btn.style.display = 'block';
+		} else {
+			btn.style.display = 'none';
+		}
+	}
+
 </body>
 </html>
