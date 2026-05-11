@@ -241,3 +241,14 @@ Retrieved 2026-05-08, License - CC BY-SA 4.0
             -ms-user-select: none;
             user-select: none;
         }
+
+        @media (max-width: 700px) {
+            .card-body {
+                flex-direction: column;
+            }
+
+            .cat-card img {
+                width: 100%;
+                height: 250px;
+            }
+        }
