@@ -24,9 +24,25 @@ function sha256(input) {
   return createHash('sha256').update(input).digest('hex');
 }
 
-//create account - this belongs to cory
+// Helper to read/write users
+function readUsers(callback) {
+  fs.readFile('server_assets/users.json', 'utf8', (err, data) => {
+    if (err && err.code !== 'ENOENT') return callback(err);
+    callback(null, data ? JSON.parse(data) : []);
+  });
+}
+
+function writeUsers(users, callback) {
+  fs.writeFile(
+    'server_assets/users.json',
+    JSON.stringify(users, null, 2),
+    callback,
+  );
+}
+
+// Create account - this belongs to Cory
 app.post('/createAccount', (req, res) => {
-  var { name, email, password } = req.body;
+  var { name, email, password, catType } = req.body;
 
   password = sha256(password.toString());
 
@@ -34,43 +50,27 @@ app.post('/createAccount', (req, res) => {
     name,
     email,
     password,
+    tasksCompleted: 0, // new
+    catType: catType || 'none', // new
   };
 
-  const full = {
-    email,
-    newUser,
-  };
+  const full = { email, newUser };
 
-  fs.readFile('server_assets/users.json', 'utf8', (err, data) => {
-    if (err && err.code !== 'ENOENT') {
-      return res.status(500).json({ error: 'Server error' });
-    } else {
-      let users = [];
-      if (data) {
-        users = JSON.parse(data);
-      }
+  readUsers((err, users) => {
+    if (err) return res.status(500).json({ error: 'Server error' });
 
-      //check if email already exists
-      const existingUser = users.find((user) => user.email === email);
-      if (existingUser) {
-        return res.status(400).json({ error: 'Email already exists' });
-      } else {
-        users.push(full);
-
-        //save updated users list to json - this is Cory's
-        fs.writeFile(
-          'server_assets/users.json',
-          JSON.stringify(users, null, 2),
-          (err) => {
-            if (err) {
-              return res.status(500).json({ error: 'Failed to save user' });
-            } else {
-              return res.status(200).json({ success: true });
-            }
-          },
-        );
-      }
+    const existingUser = users.find((user) => user.email === email);
+    if (existingUser) {
+      return res.status(400).json({ error: 'Email already exists' });
     }
+
+    users.push(full);
+
+    // Save updated users list to json - this is Cory's
+    writeUsers(users, (err) => {
+      if (err) return res.status(500).json({ error: 'Failed to save user' });
+      return res.status(200).json({ success: true });
+    });
   });
 });
 
@@ -79,15 +79,8 @@ app.post('/logIn', (req, res) => {
   var { email, password } = req.body;
   password = sha256(password);
 
-  fs.readFile('server_assets/users.json', 'utf8', (err, data) => {
-    if (err && err.code !== 'ENOENT') {
-      return res.status(500).json({ error: 'Server error' });
-    }
-
-    let users = [];
-    if (data) {
-      users = JSON.parse(data);
-    }
+  readUsers((err, users) => {
+    if (err) return res.status(500).json({ error: 'Server error' });
 
     const user = users.find((user) => user.email === email.toLowerCase());
 
@@ -100,11 +93,50 @@ app.post('/logIn', (req, res) => {
     if (user.newUser.password !== password) {
       return res.status(400).json({ error: 'Incorrect password' });
     }
+
     return res.status(200).json({ success: true, name: user.newUser.name });
   });
 });
 
-// Cory's CodeAI responce
+// Update tasksCompleted and/or catType
+app.patch('/updateUser', (req, res) => {
+  const { email, tasksCompleted, catType } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ error: 'Email is required' });
+  }
+
+  readUsers((err, users) => {
+    if (err) return res.status(500).json({ error: 'Server error' });
+
+    const userIndex = users.findIndex(
+      (user) => user.email === email.toLowerCase(),
+    );
+
+    if (userIndex === -1) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Only update fields that were actually sent
+    if (tasksCompleted !== undefined) {
+      users[userIndex].newUser.tasksCompleted = tasksCompleted;
+    }
+    if (catType !== undefined) {
+      users[userIndex].newUser.catType = catType;
+    }
+
+    writeUsers(users, (err) => {
+      if (err) return res.status(500).json({ error: 'Failed to update user' });
+      return res.status(200).json({
+        success: true,
+        tasksCompleted: users[userIndex].newUser.tasksCompleted,
+        catType: users[userIndex].newUser.catType,
+      });
+    });
+  });
+});
+
+// Cory's CodeAI response
 app.post('/ai', async (req, res) => {
   const { question } = req.body;
 
