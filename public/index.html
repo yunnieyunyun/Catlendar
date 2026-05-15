@@ -23,11 +23,11 @@
         nowIndicator: true,
         selectable: true,
         dateClick: function(info) {
-          dates = info.dateStr.split("T")
-          eDate.value = dates[0];
-          if (dates.length > 1){
-            eStart.value = dates[1].substring(0,8);
-          }
+          date = Date(info.dateStr.substring(0,19))
+          
+          eStart.value = info.dateStr.substring(0,19);
+
+
         },
         events: [
           {
@@ -170,7 +170,7 @@
               <div class="eLabel"><label for="eStart">Event Start Time</label></div>
               <input 
                 value=""
-                type="time"
+                type="datetime-local"
                 id="eStart"
                 placeholder="Enter a time (HH:MM)"
                 
@@ -181,7 +181,7 @@
               <div class="eLabel"><label for="eEnd">Event End Time</label></div>
               <input 
                 value=""
-                type="time"
+                type="datetime-local"
                 id="eEnd"
                 placeholder="Enter a time (HH:MM)"
                 required
