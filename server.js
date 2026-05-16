@@ -98,39 +98,106 @@ app.post('/logIn', (req, res) => {
   });
 });
 
-// Update tasksCompleted and/or catType
 app.patch('/updateUser', (req, res) => {
-  const { email, tasksCompleted, catType } = req.body;
+  const { email, updates } = req.body;
 
   if (!email) {
-    return res.status(400).json({ error: 'Email is required' });
+    return res.status(400).json({
+      success: false,
+      error: 'Email is required',
+    });
+  }
+
+  if (!updates || typeof updates !== 'object') {
+    return res.status(400).json({
+      success: false,
+      error: 'Updates object is required',
+    });
   }
 
   readUsers((err, users) => {
-    if (err) return res.status(500).json({ error: 'Server error' });
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        error: 'Failed to read users',
+      });
+    }
 
     const userIndex = users.findIndex(
-      (user) => user.email === email.toLowerCase(),
+      (u) => u.email.toLowerCase() === email.toLowerCase(),
     );
 
     if (userIndex === -1) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({
+        success: false,
+        error: 'User not found',
+      });
     }
 
-    // Only update fields that were actually sent
-    if (tasksCompleted !== undefined) {
-      users[userIndex].newUser.tasksCompleted = tasksCompleted;
+    const user = users[userIndex];
+
+    // Allowed fields to update
+    const allowedFields = [
+      'tasksCompleted',
+      'catType',
+      'xp',
+      'coins',
+      'level',
+      'streak',
+      'title',
+    ];
+
+    // Create newUser object if missing
+    if (!user.newUser) {
+      user.newUser = {};
     }
-    if (catType !== undefined) {
-      users[userIndex].newUser.catType = catType;
+
+    const changes = {};
+
+    // Apply updates safely
+    for (const key in updates) {
+      if (!allowedFields.includes(key)) {
+        continue;
+      }
+
+      const oldValue = user.newUser[key];
+      const newValue = updates[key];
+
+      user.newUser[key] = newValue;
+
+      changes[key] = {
+        before: oldValue,
+        after: newValue,
+      };
     }
+
+    // Metadata
+    user.newUser.lastUpdated = new Date().toISOString();
+
+    // Update history
+    if (!user.newUser.updateHistory) {
+      user.newUser.updateHistory = [];
+    }
+
+    user.newUser.updateHistory.push({
+      timestamp: new Date().toISOString(),
+      changes,
+    });
 
     writeUsers(users, (err) => {
-      if (err) return res.status(500).json({ error: 'Failed to update user' });
+      if (err) {
+        return res.status(500).json({
+          success: false,
+          error: 'Failed to save user',
+        });
+      }
+
       return res.status(200).json({
         success: true,
-        tasksCompleted: users[userIndex].newUser.tasksCompleted,
-        catType: users[userIndex].newUser.catType,
+        message: 'User updated successfully',
+        updatedFields: Object.keys(changes),
+        changes,
+        user: user.newUser,
       });
     });
   });
