@@ -23,10 +23,17 @@
         nowIndicator: true,
         selectable: true,
         dateClick: function(info) {
-          date = Date(info.dateStr.substring(0,19))
-          
-          eStart.value = info.dateStr.substring(0,19);
-
+          eDate.value = info.dateStr.substring(0,11);
+          if (info.dateStr.length < 11){
+            eStart.value = info.dateStr + "T06:00";
+            eEnd.value = info.dateStr + "T07:00";
+          }
+          else {
+            eStart.value = info.dateStr.substring(0,19);
+            eEndDate = new Date(info.dateStr);
+            eEndDate.setHours(eEndDate.getHours() + 1);
+            eEnd.value = info.dateStr.substring(0,11) + eEndDate.toString().substring(16,24);
+          }
 
         },
         events: [
@@ -44,6 +51,11 @@
           }
         ]
       });
+
+      document.getElementById('eSubmit').onclick = function() {
+        alert("button was clicked");
+      }
+
       calendar.render();
     });
   </script>
