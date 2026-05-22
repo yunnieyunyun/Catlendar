@@ -22,6 +22,7 @@
           },
         nowIndicator: true,
         selectable: true,
+        //Eve Ang
         dateClick: function(info) {
           eDate.value = info.dateStr.substring(0,11);
           if (info.dateStr.length < 11){
@@ -54,6 +55,7 @@
 
       document.getElementById('eSubmit').onclick = function() {
         alert("button was clicked");
+        events.push({id: "user", title: eName.value, start: eStart.value, end: eEnd.value});
       }
 
       calendar.render();
