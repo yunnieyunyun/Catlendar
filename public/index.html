@@ -9,9 +9,11 @@
     <script>
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
+      var eventForm = document.getElementById('eventForm');
       var eDate = document.getElementById('eDate');
       var eStart = document.getElementById('eStart');
       var eEnd = document.getElementById('eEnd');
+      var eName = document.getElementById('eName');
       var calendar = new FullCalendar.Calendar(calendarEl,
        {
         initialView: 'dayGridMonth',
@@ -53,10 +55,13 @@
         ]
       });
 
-      document.getElementById('eSubmit').onclick = function() {
-        alert("button was clicked");
-        events.push({id: "user", title: eName.value, start: eStart.value, end: eEnd.value});
-      }
+      eventForm.addEventListener('submit', function(e) {
+
+        if (not(eDate.checkValidity())){
+          alert("button was clicked");
+          events.push({id: "user", title: eName.value, start: eStart.value, end: eEnd.value});
+        }
+      });
 
       calendar.render();
     });
@@ -173,21 +178,13 @@
                 />
             </div>
             <div class="eInput">
-              <span class="eLabel"><label for="eAllDay">All Day</label></span>
-              <input 
-                value=""
-                type="checkbox"
-                id="eAllDay"
-                
-                />
-            <div class="eInput">
               <div class="eLabel"><label for="eStart">Event Start Time</label></div>
               <input 
                 value=""
                 type="datetime-local"
                 id="eStart"
                 placeholder="Enter a time (HH:MM)"
-                
+                required
                 />
             </div>
             </div>
@@ -202,12 +199,7 @@
                 />
             </div>
             <div class="eInput">
-              <input 
-                type="submit"
-                id="eSubmit"
-                value="Add Event"
-                required
-                />
+              <button id="eSubmit">Add Eve</button>
             </div>
           </form>
         </td>
