@@ -19,7 +19,7 @@
 <div class="container">
 		<form class="search-bar">
 			<input type="text" id="searchInput" placeholder="search cat breeds" name="q">
-			<button type="submit"><img src="piccatss/searchicon.webp"></button>
+			<button type="button" onclick="searchResult()"><img src="piccatss/searchicon.webp"></button>
 		</form>
 </div>
 </header>
@@ -415,7 +415,6 @@ Vankedisi” or "Van Kedi".The Van’s body is often compared to a swimmer’s b
 </script>
 
 <script>
-	document.addEventListener('keyup', searchResult);
 	function searchResult() {
 		let input = document.getElementById('searchInput').value;
 		input = input.toLowerCase();
@@ -450,8 +449,10 @@ Vankedisi” or "Van Kedi".The Van’s body is often compared to a swimmer’s b
 		let audio = document.getElementById('meow');
 		audio.src = sound;
 		audio.play()
+		img.style.pointerEvents = "none"; // Prevent clicks
 		setTimeout(function() {
 			img.src = originalSrc;
+			img.style.pointerEvents = "auto"; // Make it clickable
 		}, 2500);
 	}
 </script>

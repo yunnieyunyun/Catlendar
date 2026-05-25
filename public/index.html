@@ -68,6 +68,9 @@
   </script>
   </head>
   <body>
+    <div id="background-wrapper">
+      <img src="assets/calenderBG.gif" class="welcome-gif" />
+    </div>
     <div id="intro">
       <div id="intro-opening">
         <p>🐾</p>
@@ -79,10 +82,10 @@
 
         <span style="font-weight: bold">Welcome: </span>Log in to displayname
       </p>
-      <div>
-        <a href="information.html" id="infoBtn">Cat Information</a>
+      <div id="button-container">
+        <a href="information.html" id="infoBtn">Cat Info</a>
         <a href="account_page/account.html" id="accountBtn"
-          >Login / Create Account</a
+          >Login / Signup</a
         >
       </div>
     </header>
@@ -140,7 +143,6 @@
       </button>
     </div>
     <div id="welcome">
-      <img src="assets/calenderBG.gif" class="welcome-gif" />
       <div class="title-box">
         <h1>Catlendar</h1>
         <p>A place to love your cat and be productive</p>
@@ -149,13 +151,6 @@
     <br />
     <table id="completeCalendar">
       <tr id="infoRow">
-        <td class="calendarData">
-          <div id="dailyTasks"></div>
-          <button id="markAsDone">Mark as Done</button>
-        </td>
-        <td class="calendarData">
-          <div id="calendar"></div>
-        </td>
         <td class="calendarData">
           <form id="eventForm">
             <div class="eInput">
@@ -202,6 +197,13 @@
               <button id="eSubmit">Add Eve</button>
             </div>
           </form>
+        </td>
+        <td class="calendarData">
+          <div id="calendar"></div>
+        </td>
+        <td class="calendarData">
+          <div id="dailyTasks"></div>
+          <button id="markAsDone">Mark as Done</button>
         </td>
       </tr>
     </table>
