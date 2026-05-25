@@ -33,7 +33,7 @@
           }
           else {
             eStart.value = info.dateStr.substring(0,19);
-            eEndDate = new Date(info.dateStr);
+            var eEndDate = new Date(info.dateStr);
             eEndDate.setHours(eEndDate.getHours() + 1);
             eEnd.value = info.dateStr.substring(0,11) + eEndDate.toString().substring(16,24);
           }
@@ -56,14 +56,58 @@
       });
 
       eventForm.addEventListener('submit', function(e) {
+        e.preventDefault();
 
-        if (not(eDate.checkValidity())){
-          alert("button was clicked");
-          events.push({id: "user", title: eName.value, start: eStart.value, end: eEnd.value});
+        if (eventForm.checkValidity()){
+          calendar.addEvent({
+            id: "user-" + Date.now(),
+            title: eName.value,
+            start: eStart.value,
+            end: eEnd.value
+          });
+          eventForm.reset();
         }
       });
 
       calendar.render();
+
+      async function loadCompletedTasks() {
+        if (sessionStorage.getItem('loggedIn') !== 'true') return;
+
+        var email = sessionStorage.getItem('email');
+        if (!email) return;
+
+        try {
+          var response = await fetch('/completedTasks?email=' + encodeURIComponent(email));
+          var data = await response.json();
+          if (!response.ok || !data.success) return;
+
+          data.completedTasks.forEach(function(task) {
+            calendar.addEvent({
+              id: "completed-" + task.id,
+              title: "Completed: " + task.task,
+              start: task.taskDate,
+              allDay: true
+            });
+          });
+        } catch (err) {
+          console.error('Could not load completed tasks:', err);
+        }
+      }
+
+      document.addEventListener('completed-task-saved', function(event) {
+        var task = event.detail;
+        if (!task) return;
+
+        calendar.addEvent({
+          id: "completed-" + task.id,
+          title: "Completed: " + task.task,
+          start: task.taskDate,
+          allDay: true
+        });
+      });
+
+      loadCompletedTasks();
     });
   </script>
   </head>

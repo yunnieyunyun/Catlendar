@@ -11,15 +11,72 @@ function logOut() {
 }
 const markDoneButton = document.getElementById('markAsDone');
 const dailyTasks = document.getElementById('dailyTasks');
+let currentDailyTask = '';
 
-const tasks = ["Drink water!", "Check in with a friend!", "Visit a park!", "Pet your cat!", "Give your cat a treat!", "Hang out with your friends!", "Get some exercise!", "Eat a healthy snack!"]
-getDailyTask()
+const tasks = [
+  'Drink water!',
+  'Check in with a friend!',
+  'Visit a park!',
+  'Pet your cat!',
+  'Give your cat a treat!',
+  'Hang out with your friends!',
+  'Get some exercise!',
+  'Eat a healthy snack!',
+];
+getDailyTask();
 
-markDoneButton.onclick = function () {
+markDoneButton.onclick = async function () {
   const done = document.createElement('div');
   done.textContent = 'Complete! + 10 points';
   dailyTasks.appendChild(done);
+
+  if (sessionStorage.getItem('loggedIn') !== 'true') {
+    const loginNotice = document.createElement('div');
+    loginNotice.textContent = 'Log in to save completed tasks.';
+    dailyTasks.appendChild(loginNotice);
+    return;
+  }
+
+  try {
+    await saveCompletedTask(currentDailyTask);
+  } catch (err) {
+    console.error('Completed task save error:', err);
+    const errorNotice = document.createElement('div');
+    errorNotice.textContent = 'Task completed, but it could not be saved.';
+    dailyTasks.appendChild(errorNotice);
+  }
 };
+
+async function saveCompletedTask(task) {
+  const email = sessionStorage.getItem('email');
+
+  if (!email || !task) {
+    throw new Error('Missing user email or task');
+  }
+
+  const response = await fetch('/completedTasks', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email,
+      task,
+      taskDate: new Date().toISOString().slice(0, 10),
+    }),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok || data.error) {
+    throw new Error(data.error || 'Failed to save completed task');
+  }
+
+  document.dispatchEvent(
+    new CustomEvent('completed-task-saved', { detail: data.task }),
+  );
+
+  return data;
+}
+
 /*Eve Ang*/
 function getDailyTask() {
   let today = new Date();
@@ -32,10 +89,10 @@ function getDailyTask() {
   );
   let taskNumber = seed % tasks.length;
   const task = document.createElement('div');
-  task.textContent = 'Daily Task: ' + `${tasks[taskNumber]}`;
+  currentDailyTask = tasks[taskNumber];
+  task.textContent = 'Daily Task: ' + currentDailyTask;
   dailyTasks.appendChild(task);
 }
-
 
 function initAiChatWidget() {
   const panel = document.getElementById('ai-chat-panel');

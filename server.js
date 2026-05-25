@@ -8,6 +8,7 @@ require('dotenv').config({ path: 'serverAssets/.env' });
 
 const app = express();
 const PORT = 3000;
+const USERS_FILE = path.join(__dirname, 'server_assets', 'users.json');
 
 app.use(express.json());
 
@@ -26,7 +27,7 @@ function sha256(input) {
 
 // Helper to read/write users
 function readUsers(callback) {
-  fs.readFile('server_assets/users.json', 'utf8', (err, data) => {
+  fs.readFile(USERS_FILE, 'utf8', (err, data) => {
     if (err && err.code !== 'ENOENT') return callback(err);
     callback(null, data ? JSON.parse(data) : []);
   });
@@ -34,9 +35,17 @@ function readUsers(callback) {
 
 function writeUsers(users, callback) {
   fs.writeFile(
-    'server_assets/users.json',
+    USERS_FILE,
     JSON.stringify(users, null, 2),
     callback,
+  );
+}
+
+function findUserByEmail(users, email) {
+  return users.find(
+    (user) =>
+      user.email &&
+      user.email.toLowerCase() === email.toLowerCase(),
   );
 }
 
@@ -51,6 +60,7 @@ app.post('/createAccount', (req, res) => {
     email,
     password,
     tasksCompleted: 0, // new
+    completedTasks: [],
     catType: catType || 'none', // new
   };
 
@@ -82,7 +92,7 @@ app.post('/logIn', (req, res) => {
   readUsers((err, users) => {
     if (err) return res.status(500).json({ error: 'Server error' });
 
-    const user = users.find((user) => user.email === email.toLowerCase());
+    const user = findUserByEmail(users, email);
 
     if (!user) {
       return res
@@ -139,6 +149,7 @@ app.patch('/updateUser', (req, res) => {
     // Allowed fields to update
     const allowedFields = [
       'tasksCompleted',
+      'completedTasks',
       'catType',
       'xp',
       'coins',
@@ -198,6 +209,113 @@ app.patch('/updateUser', (req, res) => {
         updatedFields: Object.keys(changes),
         changes,
         user: user.newUser,
+      });
+    });
+  });
+});
+
+app.get('/completedTasks', (req, res) => {
+  const { email } = req.query;
+
+  if (!email) {
+    return res.status(400).json({
+      success: false,
+      error: 'Email is required',
+    });
+  }
+
+  readUsers((err, users) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        error: 'Failed to read users',
+      });
+    }
+
+    const user = findUserByEmail(users, email);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: 'User not found',
+      });
+    }
+
+    const completedTasks = user.newUser.completedTasks || [];
+
+    return res.status(200).json({
+      success: true,
+      tasksCompleted: completedTasks.length,
+      completedTasks,
+    });
+  });
+});
+
+app.post('/completedTasks', (req, res) => {
+  const { email, task, taskDate } = req.body;
+
+  if (!email) {
+    return res.status(400).json({
+      success: false,
+      error: 'Email is required',
+    });
+  }
+
+  if (!task || typeof task !== 'string') {
+    return res.status(400).json({
+      success: false,
+      error: 'Task is required',
+    });
+  }
+
+  readUsers((err, users) => {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        error: 'Failed to read users',
+      });
+    }
+
+    const user = findUserByEmail(users, email);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: 'User not found',
+      });
+    }
+
+    if (!user.newUser) {
+      user.newUser = {};
+    }
+
+    if (!Array.isArray(user.newUser.completedTasks)) {
+      user.newUser.completedTasks = [];
+    }
+
+    const completedTask = {
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      task: task.trim(),
+      taskDate: taskDate || new Date().toISOString().slice(0, 10),
+      completedAt: new Date().toISOString(),
+    };
+
+    user.newUser.completedTasks.push(completedTask);
+    user.newUser.tasksCompleted = user.newUser.completedTasks.length;
+    user.newUser.lastUpdated = new Date().toISOString();
+
+    writeUsers(users, (err) => {
+      if (err) {
+        return res.status(500).json({
+          success: false,
+          error: 'Failed to save completed task',
+        });
+      }
+
+      return res.status(201).json({
+        success: true,
+        task: completedTask,
+        tasksCompleted: user.newUser.tasksCompleted,
       });
     });
   });
