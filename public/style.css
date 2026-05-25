@@ -54,6 +54,12 @@
   }
 }
 
+#catFact {
+  font-size: 25px;
+  color: #272542;
+  margin-top: 20px;
+}
+
 body {
   background-color: pink;
   font-family: 'Playfair Display', serif;
