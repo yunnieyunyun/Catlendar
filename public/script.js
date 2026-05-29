@@ -12,7 +12,7 @@ function logOut() {
 const markDoneButton = document.getElementById('markAsDone');
 const dailyTasks = document.getElementById('dailyTasks');
 let currentDailyTask = '';
-const dailyTaskComplete = false;
+var dailyTaskNotDone = true;
 
 const tasks = [
   'Drink water!',
@@ -27,11 +27,11 @@ const tasks = [
 getDailyTask();
 
 markDoneButton.onclick = async function () {
-  if (!dailyTaskComplete) {
+  if (dailyTaskNotDone) {
     const done = document.createElement('div');
     done.textContent = 'Complete! + 10 points';
     dailyTasks.appendChild(done);
-    dailyTaskComplete = true;
+    dailyTaskNotDone = false;
   
 
     if (sessionStorage.getItem('loggedIn') !== 'true') {
