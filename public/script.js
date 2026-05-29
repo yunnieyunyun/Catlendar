@@ -12,6 +12,7 @@ function logOut() {
 const markDoneButton = document.getElementById('markAsDone');
 const dailyTasks = document.getElementById('dailyTasks');
 let currentDailyTask = '';
+const dailyTaskComplete = false;
 
 const tasks = [
   'Drink water!',
@@ -26,24 +27,28 @@ const tasks = [
 getDailyTask();
 
 markDoneButton.onclick = async function () {
-  const done = document.createElement('div');
-  done.textContent = 'Complete! + 10 points';
-  dailyTasks.appendChild(done);
+  if (!dailyTaskComplete) {
+    const done = document.createElement('div');
+    done.textContent = 'Complete! + 10 points';
+    dailyTasks.appendChild(done);
+    dailyTaskComplete = true;
+  
 
-  if (sessionStorage.getItem('loggedIn') !== 'true') {
-    const loginNotice = document.createElement('div');
-    loginNotice.textContent = 'Log in to save completed tasks.';
-    dailyTasks.appendChild(loginNotice);
-    return;
-  }
+    if (sessionStorage.getItem('loggedIn') !== 'true') {
+      const loginNotice = document.createElement('div');
+      loginNotice.textContent = 'Log in to save completed tasks.';
+      dailyTasks.appendChild(loginNotice);
+      return;
+    }
 
-  try {
-    await saveCompletedTask(currentDailyTask);
-  } catch (err) {
-    console.error('Completed task save error:', err);
-    const errorNotice = document.createElement('div');
-    errorNotice.textContent = 'Task completed, but it could not be saved.';
-    dailyTasks.appendChild(errorNotice);
+    try {
+      await saveCompletedTask(currentDailyTask);
+    } catch (err) {
+      console.error('Completed task save error:', err);
+      const errorNotice = document.createElement('div');
+      errorNotice.textContent = 'Task completed, but it could not be saved.';
+      dailyTasks.appendChild(errorNotice);
+    }
   }
 };
 
