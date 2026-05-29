@@ -55,7 +55,7 @@
         ]
       });
 
-      eventForm.addEventListener('submit', function(e) {
+      eventForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         if (eventForm.checkValidity()){
@@ -239,7 +239,7 @@
                 />
             </div>
             <div class="eInput">
-              <button id="eSubmit">Add Eve</button>
+              <button id="eSubmit">Add Event</button>
             </div>
           </form>
         </td>
