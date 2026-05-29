@@ -76,6 +76,7 @@ body {
         cursor: pointer;
     }
 
+    /* Yun's code */
     .mode-button:hover {
         transform: scale(1.3);
     }
